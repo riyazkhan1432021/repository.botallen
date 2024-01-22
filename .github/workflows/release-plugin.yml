@@ -36,11 +36,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install python-minifier
           pyminify plugin.video.jiotv/ --in-place
-      - name: Install zip
-        uses: montudor/action-zip@v1
-
-      - name: Zip output
-        run: zip -qq -r plugin.video.jiotv-${{ steps.octokit.outputs.tag }}.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+      
 
       - uses: actions/checkout@v3
         with:
