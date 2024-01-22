@@ -1,0 +1,34 @@
+name: Generate addons.xml.gz.md5
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Generate addons.xml.gz
+      run: |
+        # Add your script or command to generate addons.xml.gz here
+        # For example:
+        gzip -k addons.xml
+
+    - name: Generate addons.xml.gz.md5
+      run: |
+        # Add your script or command to generate addons.xml.gz.md5 here
+        # For example:
+        md5sum addons.xml.gz > addons.xml.gz.md5
+
+    - name: Commit changes
+      run: |
+        git config user.name "${{ github.actor }}"
+        git config user.email "${{ github.actor }}@users.noreply.github.com"
+        git add addons.xml.gz addons.xml.gz.md5
+        git commit -m "Update addons.xml.gz and addons.xml.gz.md5"
+        git push
